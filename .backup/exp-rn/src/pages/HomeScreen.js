@@ -1,7 +1,6 @@
 import React from "react";
 import { StatusBar } from 'expo-status-bar';
 import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
-import { ScrollGrid } from "@AppGrid/ScrollGrid/index.js";
 import { Row, Col } from 'react-native-responsive-grid-system';
 import { Accordian } from "@AppComponent/Accordian/index.js";
 import { Alert } from "@AppComponent/Alert/index.js";
@@ -9,11 +8,12 @@ import { Avatar } from "@AppComponent/Avatar/index.js";
 import { Badge } from "@AppComponent/Badge/index.js";
 
 export const HomeScreen = (props)=>{
- return (<ScrollGrid>
+ return ( <View>
     <StatusBar translucent backgroundColor="orange" style="auto" height="5%"  />
-    <TouchableOpacity onPress={()=>{ props.navigation.toggleDrawer(); }} >
-      <Badge label="Open Drawer Content" type="primary" size={12} />
-    </TouchableOpacity>
+    <View  style={styles.content}>
+        <TouchableOpacity onPress={()=>{ props.navigation.toggleDrawer(); }} >
+            <Badge label="Open Drawer Content" type="primary" size={12} />
+        </TouchableOpacity>
     {/* */}
     <Row>
     <Col xs={12} sm={12} md={12} lg={12}>
@@ -60,10 +60,16 @@ export const HomeScreen = (props)=>{
     </Col>
     </Row>
     {/* */}
-    </ScrollGrid>
+    </View>
+    </View>
  );
 };
 
 const styles = StyleSheet.create({
-
+    content: {
+      marginTop: '5%',
+      paddingTop: '5%',
+      paddingLeft:'2%',
+      paddingRight:'2%'
+    },
   });

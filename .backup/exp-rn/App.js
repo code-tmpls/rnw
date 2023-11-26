@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-// import Span2 from "e-ui-react-native";
+import Span2 from "e-ui-react-native";
 // import { AccordianTest } from "@AppComponent/Accordian/index.js";
 import { AppRouting } from '@AppFeature/AppRouting/index.js';
 import { HomeScreen } from "@AppPage/HomeScreen.js";

@@ -5,3 +5,9 @@ e-ui-rn/node_modules
 
 exp-rn/.expo
 exp-rn/node_modules
+
+.backup/e-ui-rn/.expo
+.backup/e-ui-rn/node_modules
+
+.backup/exp-rn/.expo
+.backup/exp-rn/node_modules

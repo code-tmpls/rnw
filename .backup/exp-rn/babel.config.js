@@ -11,8 +11,6 @@ module.exports = function(api) {
               '@AppComponent': './src/templates/Components',
               '@AppFeature': './src/templates/Features',
               '@AppFormElement': './src/templates/FormElements',
-              '@AppGrid': './src/templates/Grid',
-              '@AppThemes': './src/templates/Themes',
               '@AppPage': './src/pages'
             },
           }],
