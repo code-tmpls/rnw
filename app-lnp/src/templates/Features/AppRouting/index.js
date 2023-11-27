@@ -8,7 +8,7 @@ export const AppRouting = ({ data, initialRouteName }) => {
   return (
     <NavigationContainer>
         <Stack.Navigator initialRouteName={initialRouteName} screenOptions={{ headerShown: false }}>
-        {data?.map(menu=><Stack.Screen key={menu.name} name={menu.name} component={menu.component} />)}
+        {data?.map(menu=><Stack.Screen key={menu.name} name={menu.name} component={menu.component}  />)}
         </Stack.Navigator>
     </NavigationContainer>
   );

@@ -32,5 +32,7 @@ Steps:
        npm cache clean --force
 
 1) For fonts:
-
-npx react-native-asset
+    1) Install globally : npm install -g react-native-asset
+    2) Add react-native.config.js file to the project.
+    3) npx react-native-asset
+    4) npx react-native run-android

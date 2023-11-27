@@ -1,40 +1,40 @@
-import { StyleSheet, Text, View } from 'react-native';
-// import Span2 from "e-ui-react-native";
-// import { AccordianTest } from "@AppComponent/Accordian/index.js";
+import React, { useEffect } from 'react';
+import { StyleSheet, View, ToastAndroid, Text } from 'react-native';
 import { AppRouting } from '@AppFeature/AppRouting/index.js';
 import { HomeScreen } from "@AppPage/HomeScreen.js";
-import { Page2Screen } from "@AppPage/Page2.js";
+import { Page2Screen } from "@AppPage/Page2.js"; 
+import { useFonts } from 'expo-font';
+import * as SplashScreen from "expo-splash-screen";
 import 'react-native-gesture-handler';
 
-const Span = ({ children })=>{
- return (<>
- <View>
-  <Text>{children}</Text>
- </View>
- </>);
-};
-
 export default function App(){
-// const App = () => {
+  /* Loading Fonts ::: START */
+  const [fontsLoaded] = useFonts({
+    "HandycheeraRegular": require('./assets/fonts/HandycheeraRegular.otf')
+  });
+  useEffect(()=>{
+    async function prepare() {
+        await SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  },[]);
+
+
+  
+  if(!fontsLoaded){
+    return undefined;
+  } else {
+    SplashScreen.hideAsync();
+  }
+  /* Loading Fonts ::: END */
+
   return (
     <>
-    
-     <AppRouting initialRouteName="Page2Screen" 
-          data={[{ name:"Home", component: HomeScreen },
-                { name:"Page2Screen", component: Page2Screen }]} />
-    {/*<View>
-    <StatusBar translucent backgroundColor="orange" style="auto" height="5%"  />
-    <View style={styles.content}>
-    
-    </View>
-    </View>*/}
-    </>
-  );
+      {fontsLoaded && <AppRouting initialRouteName="Page2Screen" 
+            data={[{ name:"Home", component: HomeScreen },
+  { name:"Page2Screen", component: Page2Screen }]} />}
+    </>);
 };
-
-// AppRegistry.registerComponent('MyApp', () => App);
-
-// export default App;
 
 const styles = StyleSheet.create({
   content: {
