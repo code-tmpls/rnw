@@ -18,6 +18,8 @@
     "chokidar": "^3.5.3",
     "e-ui-react-native": "file:../e-ui-rn",
     "expo": "^49.0.21",
+    "expo-av": "~13.4.1",
+    "expo-asset": "~8.10.1",
     "expo-image-manipulator": "~11.3.0",
     "expo-image-picker": "~14.3.2",
     "expo-splash-screen": "~0.20.5",

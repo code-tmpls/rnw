@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View, Text, ImageBackground } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from "expo-splash-screen";
+import { AppRouting } from '@AppFeature/AppRouting/index.js';
+import { HomeScreen } from "@AppPage/Home/index.js"; 
+import { LEDGame } from "@AppPage/LEDGame/index.js";
 
 const App = () =>{
     const [fontsLoaded] = useFonts({
-        "HandycheeraRegular": require('./assets/fonts/HandycheeraRegular.otf')
+        "HandycheeraRegular": require('./assets/fonts/HandycheeraRegular.otf'),
+        "CasualChance": require('./assets/fonts/HandycheeraRegular.otf'),
+        "QutcoyTrial": require('./assets/fonts/QutcoyTrial.otf'),
     });
 
     useEffect(()=>{
@@ -22,16 +28,16 @@ const App = () =>{
     }
 
 
- return (<View style={styles.container}>
-    <Text style={{ fontFamily:'HandycheeraRegular' }}>Subscribe</Text>
-    <Text>Subscribe</Text>
-    <Text>Subscribe</Text>
-    <Text>Subscribe</Text>
- </View>);
+ return (
+ <AppRouting 
+    initialRouteName="Home" 
+    data={[{ name:"Home", component: HomeScreen },
+        { name:"AlphabetPlay", component: HomeScreen },
+        { name:"NumberPlay", component: LEDGame },
+        { name:"GameCredits", component: HomeScreen }]} />
+ );
 };
 
-const styles = StyleSheet.create({
-    container: { marginVertical:40, marginHorizontal: 20 }
-});
+
 
 export default App;
