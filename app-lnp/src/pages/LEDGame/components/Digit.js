@@ -56,40 +56,17 @@ export const Digit = ({ number }) => {
       </TouchableWithoutFeedback >
       <TouchableWithoutFeedback  onPress={()=>toggleSegment('g')}>
         <Text style={[ styles.horizontal, styles.segment, styles.g, activeSegments.g && styles.active ]}></Text>
-      </TouchableWithoutFeedback >
+      </TouchableWithoutFeedback>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  digit: {
-    // position: 'relative',
-    margin: 5,
-    width: 60,
-    height: 110,
-    float: 'left',
-  },
-  horizontal: {
-    width: 40,
-    height: 10,
-    backgroundColor: '#333',
-    position: 'absolute',
-    borderRadius: 5,
-  },
-  vertical: {
-    width: 10,
-    height: 40,
-    backgroundColor: '#333',
-    position: 'absolute',
-    borderRadius: 5,
-  },
-  segment: {
-    backgroundColor: '#ddd',
-    zIndex: 2
-  },
-  active: {
-    backgroundColor: 'brown',
-  },
+  digit: { margin: 5, width: 60, height: 110, float: 'left' },
+  horizontal: { width: 40, height: 10, backgroundColor: '#333', position: 'absolute', borderRadius: 5, },
+  vertical: { width: 10, height: 40, backgroundColor: '#333', position: 'absolute', borderRadius: 5, },
+  segment: { backgroundColor: '#ddd', zIndex: 2 },
+  active: { backgroundColor: 'brown' },
   a: { top: 0, left: 10 },
   b: { top: 10, left: 0 },
   c: { top: 10, left: 50 },
@@ -97,6 +74,4 @@ const styles = StyleSheet.create({
   e: { top: 60, left: 0 },
   f: { top: 60, left: 50 },
   g: { top: 100, left: 10 },
-  h: { top: 50, left: 10 },
-  i: { top: 36, left: 25 },
 });

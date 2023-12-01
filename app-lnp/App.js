@@ -1,43 +1,57 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, ImageBackground, ToastAndroid } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from "expo-splash-screen";
 import { AppRouting } from '@AppFeature/AppRouting/index.js';
 import { HomeScreen } from "@AppPage/Home/index.js"; 
 import { LEDGame } from "@AppPage/LEDGame/index.js";
+import { ContextProvider } from '@AppAdvancedTopics/ReactContext/index.js';
+import { Sound } from '@AppUtils/GameSound/sound.js';
+import { GameSound } from '@AppUtils/GameSound/index.js';
 
 const App = () =>{
-    const [fontsLoaded] = useFonts({
-        "HandycheeraRegular": require('./assets/fonts/HandycheeraRegular.otf'),
-        "CasualChance": require('./assets/fonts/HandycheeraRegular.otf'),
-        "QutcoyTrial": require('./assets/fonts/QutcoyTrial.otf'),
-    });
+   const play = true;
+  //  const { sound, playSound, pauseSound } = Sound('');
 
-    useEffect(()=>{
-        async function prepare() {
-            await SplashScreen.preventAutoHideAsync();
-        }
-        prepare();
-    },[]);
+   /* Fonts ::: START */
+   const [fontsLoaded] = useFonts({
+    "HandycheeraRegular": require('./assets/fonts/HandycheeraRegular.otf'),
+    "CasualChance": require('./assets/fonts/HandycheeraRegular.otf'),
+    "QutcoyTrial": require('./assets/fonts/QutcoyTrial.otf'),
+   });
 
-    if(!fontsLoaded){
-        return undefined;
-    } else {
-        SplashScreen.hideAsync();
-    }
+   const [isReady, setIsReady] = useState(false);
+    
+   async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+      setIsReady(true);
+   }
 
+   useEffect(() => {
+    prepare();
+   }, []);
 
- return (
- <AppRouting 
-    initialRouteName="Home" 
-    data={[{ name:"Home", component: HomeScreen },
-        { name:"AlphabetPlay", component: HomeScreen },
-        { name:"NumberPlay", component: LEDGame },
-        { name:"GameCredits", component: HomeScreen }]} />
- );
+   if (!isReady || !fontsLoaded) {
+    return null; // or some loading indicator
+   } else {
+    SplashScreen.hideAsync();
+   }
+   /* Fonts ::: END */
+
+   return (
+    <>
+    <ContextProvider variables={{  }}>
+     <AppRouting 
+        initialRouteName="Home" 
+        data={[{ name:"Home", component: HomeScreen },
+            { name:"AlphabetPlay", component: HomeScreen },
+            { name:"NumberPlay", component: LEDGame },
+            { name:"GameCredits", component: HomeScreen }]} />
+    </ContextProvider>
+    <GameSound />
+    </>);
+    
 };
-
-
 
 export default App;

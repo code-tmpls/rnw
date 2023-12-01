@@ -4,8 +4,6 @@ import { Text, TouchableOpacity, View, StyleSheet, ToastAndroid } from "react-na
 import { DigitGroup } from './components/DigitGroup';
 
 export const LEDGame = () => {
-
-
   return (
 <View style={styles.container}>
   <StatusBar translucent backgroundColor="purple" style="auto" height="5%"  />
