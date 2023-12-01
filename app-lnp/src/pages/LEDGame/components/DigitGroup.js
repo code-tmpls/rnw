@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Text, TouchableOpacity, ToastAndroid, View, StyleSheet } from "react-native";
 import { Digit } from './Digit';
 
-export const DigitGroup = ({ number }) =>{
+export const DigitGroup = ({ number, setNumber }) =>{
     const numberArray = number.toString().split('').map(Number);
 
     useEffect(()=>{
@@ -12,7 +12,7 @@ export const DigitGroup = ({ number }) =>{
 
   return (<>
    {numberArray?.map((num, i)=>{
-    return (<Digit key={i} number={num} />);
+    return (<Digit key={i} number={num} setNumber={setNumber} />);
    })}
   </>);
 };

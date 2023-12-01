@@ -14,13 +14,16 @@ import { Text, TouchableWithoutFeedback , ToastAndroid, View, StyleSheet } from 
     9:{ a: true, b: true, c: true, d: true, e:false, f: true, g: true }
 };
 
-export const Digit = ({ number }) => {
-  const [activeSegments, setActiveSegments] = useState(number?display[number]:display[0]);
+export const Digit = ({ number, setNumber }) => {
+  const [currentDigit, setCurrentDigit] = useState(number);
+  const [activeSegments, setActiveSegments] = useState(currentDigit?display[currentDigit]:display[0]);
 
   useEffect(()=>{
     console.log("activeSegments", activeSegments);
-    
-    ToastAndroid.show("commonKeys["+number+"]: "+findKeyByValue(display, activeSegments), ToastAndroid.LONG);
+    const digit = findKeyByValue(display, activeSegments);
+    setNumber( digit );
+    setCurrentDigit( digit );
+   // ToastAndroid.show("commonKeys["+digit+"]: "+digit, ToastAndroid.LONG);
   },[activeSegments]);
 
   const findKeyByValue = (object, value) => {
@@ -35,6 +38,15 @@ export const Digit = ({ number }) => {
   };
 
   return (
+    <View style={{ padding:10, backgroundColor:'#000', borderRadius: 5, shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.43,
+    shadowRadius: 9.51,
+    
+    elevation: 15 }}>
     <View style={styles.digit}>
       <TouchableWithoutFeedback onPress={()=>toggleSegment('a')}>
         <Text style={[ styles.horizontal, styles.segment, styles.a, activeSegments.a && styles.active ]}></Text>
@@ -58,20 +70,24 @@ export const Digit = ({ number }) => {
         <Text style={[ styles.horizontal, styles.segment, styles.g, activeSegments.g && styles.active ]}></Text>
       </TouchableWithoutFeedback>
     </View>
+    <View style={{ position: 'absolute', color:'#000', zIndex:4, bottom: 0, right: -40 }}>
+      <Text style={{ fontSize: 22 }}>({currentDigit})</Text>
+    </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  digit: { margin: 5, width: 60, height: 110, float: 'left' },
-  horizontal: { width: 40, height: 10, backgroundColor: '#333', position: 'absolute', borderRadius: 5, },
-  vertical: { width: 10, height: 40, backgroundColor: '#333', position: 'absolute', borderRadius: 5, },
-  segment: { backgroundColor: '#ddd', zIndex: 2 },
+  digit: { width: 50, height: 90, float: 'left' },
+  horizontal: { width: 30, height: 10, backgroundColor: '#333', position: 'absolute', borderRadius: 5, },
+  vertical: { width: 10, height: 30, backgroundColor: '#333', position: 'absolute', borderRadius: 5, },
+  segment: { backgroundColor: '#dddeee', zIndex: 2 },
   active: { backgroundColor: 'brown' },
   a: { top: 0, left: 10 },
   b: { top: 10, left: 0 },
-  c: { top: 10, left: 50 },
-  d: { top: 50, left: 10 },
-  e: { top: 60, left: 0 },
-  f: { top: 60, left: 50 },
-  g: { top: 100, left: 10 },
+  c: { top: 10, left: 40 },
+  d: { top: 40, left: 10 },
+  e: { top: 50, left: 0 },
+  f: { top: 50, left: 40 },
+  g: { top: 80, left: 10 },
 });
