@@ -14,6 +14,9 @@ export const LEDGame = () => {
       <View style={styles.indexView}>
         <Text style={styles.index}>SCORE</Text><Text>0</Text>
       </View>
+      <View style={styles.indexView}>
+        <Text style={styles.index}>MOVES</Text><Text>0</Text>
+      </View>
     </View>);
   };
 
@@ -24,10 +27,25 @@ export const LEDGame = () => {
   };
 
   const DisplayProblem = ({ part1, part2, result })=>{
+
+    const totalMoves = 1;
+
+    const initialPickedItem = '';
+    const initialMoveCounter = 0;
+  
+    const [pickedItem, setPickedItem] = useState(initialPickedItem);
+    const [moveCounter, setMoveCounter] = useState(initialMoveCounter);
+
     const [p1,setP1] = useState(part1);
     const [p2,setP2] = useState(part2);
     const [r,setR] = useState(result);
 
+    const reset = () => {
+      setPickedItem(initialPickedItem);
+      setMoveCounter(initialMoveCounter);
+      setElements(initialElements);
+    };
+    
     useEffect(()=>{
       if( parseInt(p1) + parseInt(p2) === parseInt(r) ){
         ToastAndroid.show("Problem Solved", ToastAndroid.LONG);
