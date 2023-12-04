@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TouchableWithoutFeedback , ToastAndroid, View, StyleSheet } from 'react-native';
 
- const display = {
+export const Digit = ({ number, setNumber, move }) => {
+  const [display, setDisplay] = useState({
     0:{ a: true, b: true, c: true, d: false, e: true, f: true, g: true },
     1:{ a: false, b: false, c: true, d: false, e: false, f: true, g: false },
     2:{ a: true, b: false, c: true, d: true, e: true, f: false, g: true },
@@ -11,10 +12,8 @@ import { Text, TouchableWithoutFeedback , ToastAndroid, View, StyleSheet } from 
     6:{ a: true, b: true, c: false, d: true, e: true, f: true, g: true },
     7:{ a: true, b: false, c: true, d: false, e: false, f: true, g: false },
     8:{ a: true, b: true, c: true, d: true, e: true, f: true, g: true },
-    9:{ a: true, b: true, c: true, d: true, e:false, f: true, g: true }
-};
-
-export const Digit = ({ number, setNumber }) => {
+    9:{ a: true, b: true, c: true, d: true, e: false, f: true, g: true }
+});
   const [currentDigit, setCurrentDigit] = useState(number);
   const [activeSegments, setActiveSegments] = useState(currentDigit?display[currentDigit]:display[0]);
 
@@ -34,7 +33,8 @@ export const Digit = ({ number, setNumber }) => {
   }
 
   const toggleSegment = (segmentId) => {
-    setActiveSegments((prev)=>({ ...prev, [segmentId]: !prev[segmentId] }));
+    // setActiveSegments((prev)=>({ ...prev, [segmentId]: !prev[segmentId] }));
+    move(display, setDisplay, currentDigit, segmentId);
   };
 
   return (
