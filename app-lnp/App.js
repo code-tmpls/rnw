@@ -5,7 +5,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from "expo-splash-screen";
 import { AppRouting } from '@AppFeature/AppRouting/index.js';
 import { HomeScreen } from "@AppPage/Home/index.js"; 
-import { LEDGame } from "@AppPage/LEDGame/index.js";
+import { LEDGame } from "@AppPage/LEDGame_V2/index.js";
 import { ContextProvider } from '@AppAdvancedTopics/ReactContext/index.js';
 import { Sound } from '@AppUtils/GameSound/sound.js';
 import { GameSound } from '@AppUtils/GameSound/index.js';

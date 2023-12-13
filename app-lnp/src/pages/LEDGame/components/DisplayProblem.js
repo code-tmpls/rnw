@@ -23,22 +23,16 @@ export const DisplayProblem = ({ part1, part2, result })=>{
       setMoveCounter(initialMoveCounter);
     };
 
-    const move = (display, setDisplay, currentDigit, segmentId) => {
+    const move = async(display, currentDigit, segmentId) => {
         ToastAndroid.show(display+""+currentDigit+""+segmentId, ToastAndroid.LONG);
         if (moveCounter < totalMoves) {
             if (display[currentDigit][segmentId] && pickedItem?.length === 0) {
               setPickedItem(currentDigit + '|' + segmentId);
-      
-              const ele = { ...display };
-              ele[currentDigit][segmentId] = !ele?.[currentDigit]?.[segmentId];
-              setDisplay(ele);
             } else if (!display[currentDigit][segmentId] && pickedItem?.length > 0) {
               setPickedItem('');
-              const ele = { ...display };
-              ele[currentDigit][segmentId] = !ele?.[currentDigit]?.[segmentId];
-              setDisplay(ele);
               setMoveCounter((prev) => prev + 1);
             }
+            
         }
     };
     

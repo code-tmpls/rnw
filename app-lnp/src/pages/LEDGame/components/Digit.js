@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableWithoutFeedback , ToastAndroid, View, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity , ToastAndroid, View, StyleSheet } from 'react-native';
 
 export const Digit = ({ number, setNumber, move }) => {
   const [display, setDisplay] = useState({
@@ -14,15 +14,16 @@ export const Digit = ({ number, setNumber, move }) => {
     8:{ a: true, b: true, c: true, d: true, e: true, f: true, g: true },
     9:{ a: true, b: true, c: true, d: true, e: false, f: true, g: true }
 });
-  const [currentDigit, setCurrentDigit] = useState(number);
-  const [activeSegments, setActiveSegments] = useState(currentDigit?display[currentDigit]:display[0]);
+  const [currentDigit, setCurrentDigit] = useState(number); // Stores Current Digit
+  const [activeSegments, setActiveSegments] = useState(currentDigit?display[currentDigit]:display[0]); 
+  // Contains Segments related to Current Digit
 
+  
   useEffect(()=>{
     console.log("activeSegments", activeSegments);
     const digit = findKeyByValue(display, activeSegments);
     setNumber( digit );
     setCurrentDigit( digit );
-   // ToastAndroid.show("commonKeys["+digit+"]: "+digit, ToastAndroid.LONG);
   },[activeSegments]);
 
   const findKeyByValue = (object, value) => {
@@ -32,9 +33,17 @@ export const Digit = ({ number, setNumber, move }) => {
     });
   }
 
-  const toggleSegment = (segmentId) => {
-    // setActiveSegments((prev)=>({ ...prev, [segmentId]: !prev[segmentId] }));
-    move(display, setDisplay, currentDigit, segmentId);
+  const toggleSegment = async(segmentId) => {
+    const ele = { ...display };
+    console.log("currentDigit: "+currentDigit+" segmentId: "+segmentId);
+      ele[currentDigit][segmentId] = !ele?.[currentDigit]?.[segmentId];
+      setDisplay(ele);
+      setActiveSegments((prev)=>({ ...prev, [segmentId]: !ele[currentDigit] }));
+      move(ele, currentDigit, segmentId);
+    /* const activeSegments = display[currentDigit];
+    const digit = findKeyByValue(display, activeSegments);
+    setNumber( digit );
+    setCurrentDigit( digit ); */
   };
 
   return (
@@ -48,27 +57,27 @@ export const Digit = ({ number, setNumber, move }) => {
     
     elevation: 15 }}>
     <View style={styles.digit}>
-      <TouchableWithoutFeedback onPress={()=>toggleSegment('a')}>
+      <TouchableOpacity onPress={()=>toggleSegment('a')}>
         <Text style={[ styles.horizontal, styles.segment, styles.a, activeSegments.a && styles.active ]}></Text>
-      </TouchableWithoutFeedback >
-      <TouchableWithoutFeedback  onPress={()=>toggleSegment('b')}>
+      </TouchableOpacity >
+      <TouchableOpacity  onPress={()=>toggleSegment('b')}>
         <Text style={[styles.vertical, styles.segment, styles.b, activeSegments.b && styles.active ]}></Text>
-      </TouchableWithoutFeedback >
-      <TouchableWithoutFeedback  onPress={()=>toggleSegment('c')}>
+      </TouchableOpacity >
+      <TouchableOpacity  onPress={()=>toggleSegment('c')}>
         <Text style={[ styles.vertical, styles.segment, styles.c, activeSegments.c && styles.active ]}></Text>
-      </TouchableWithoutFeedback >
-      <TouchableWithoutFeedback  onPress={()=>toggleSegment('d')}>
+      </TouchableOpacity >
+      <TouchableOpacity  onPress={()=>toggleSegment('d')}>
         <Text style={[ styles.horizontal, styles.segment, styles.d, activeSegments.d && styles.active ]}></Text>
-      </TouchableWithoutFeedback >
-      <TouchableWithoutFeedback  onPress={()=>toggleSegment('e')}>
+      </TouchableOpacity >
+      <TouchableOpacity  onPress={()=>toggleSegment('e')}>
         <Text style={[ styles.vertical, styles.segment, styles.e, activeSegments.e && styles.active ]}></Text>
-      </TouchableWithoutFeedback >
-      <TouchableWithoutFeedback  onPress={()=>toggleSegment('f')}>
+      </TouchableOpacity >
+      <TouchableOpacity  onPress={()=>toggleSegment('f')}>
         <Text style={[ styles.vertical, styles.segment, styles.f, activeSegments.f && styles.active ]}></Text>
-      </TouchableWithoutFeedback >
-      <TouchableWithoutFeedback  onPress={()=>toggleSegment('g')}>
+      </TouchableOpacity >
+      <TouchableOpacity  onPress={()=>toggleSegment('g')}>
         <Text style={[ styles.horizontal, styles.segment, styles.g, activeSegments.g && styles.active ]}></Text>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     </View>
     <View style={{ position: 'absolute', color:'#000', zIndex:4, bottom: 0, right: -40 }}>
       <Text style={{ fontSize: 22 }}>({currentDigit})</Text>
