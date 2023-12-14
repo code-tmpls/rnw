@@ -3,17 +3,21 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Text, TouchableOpacity, View, StyleSheet, ToastAndroid, ImageBackground } from "react-native";
 import { getAppContext, ContextProvider } from '@AppAdvancedTopics/ReactContext/index.js';
 
-export const GameSummary = () =>{
+export const GameSummary = ({reset}) =>{
     const { contextData, setContextData, deleteContextData  } = getAppContext();
 
-    const reset = () =>{
-
+    const resetFunc = ()=>{
+        reset();
+        setContextData({ moveCounter: 0, reset: true });
     };
-
     return (
     <View style={styles.gameSummaryView}>
+      <View style={[styles.indexView,{ borderWidth: 1, borderRadius: 8 }]}>
+          <Text style={styles.index}>TIMER</Text>
+          <Text style={{ fontSize: 14, fontWeight:'bold' }}>300</Text>
+      </View>
       <View style={styles.indexView}>
-        <Text style={styles.index}>PROBLEM</Text><Text style={{ fontSize: 18, fontWeight:'bold' }}>#1</Text>
+        <Text style={styles.index}>PROB</Text><Text style={{ fontSize: 18, fontWeight:'bold' }}>#1</Text>
       </View>
       <View style={styles.indexView}>
         <Text style={styles.index}>SCORE</Text><Text  style={{ fontSize: 14 }}>0</Text>
@@ -21,7 +25,8 @@ export const GameSummary = () =>{
       <View style={styles.indexView}>
         <Text style={styles.index}>MOVES</Text><Text style={{ fontSize: 14 }}>{contextData?.moveCounter} / {contextData?.totalMoves}</Text>
       </View>
-      <TouchableOpacity onPress={()=>reset()}>
+      
+      <TouchableOpacity onPress={resetFunc}>
         <View style={[styles.indexView,{ borderWidth: 1, borderRadius: 8 }]}>
           <Text style={styles.index}>RESET</Text>
           <Icon name="refresh" size={18} color="#000" />
@@ -32,8 +37,8 @@ export const GameSummary = () =>{
   };
 
   const styles = StyleSheet.create({
-    gameSummaryView: { flexDirection:'row' },
-    indexView: { alignItems:'center', zIndex: 3, marginTop: 40, marginLeft: 15, padding: 5 },
+    gameSummaryView: { flexDirection:'row', marginLeft: 5, },
+    indexView: { alignItems:'center', zIndex: 3, marginTop: 40, marginLeft: 5, padding: 5 },
     index: { fontFamily:'QutcoyTrial' }
   });
 

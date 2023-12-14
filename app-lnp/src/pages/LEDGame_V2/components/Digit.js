@@ -22,6 +22,13 @@ export const Digit = ({ id, number, updateDigit  }) => {
   const [activeSegments, setActiveSegments] = useState(display[num]); 
   const { contextData, setContextData, deleteContextData  } = getAppContext();
 
+  useEffect(()=>{
+    if(contextData?.reset){
+      setDisplay(initialDisplay);
+      setActiveSegments(display[num]);
+    }
+  },[contextData?.reset]);
+
   const findKeyByValue = (object, value) => {
     return Object.keys(object).find(key => {
       const segment = object[key];

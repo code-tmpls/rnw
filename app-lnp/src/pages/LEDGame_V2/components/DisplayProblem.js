@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useImperativeHandle, forwardRef } from 'react';
 import { Text, TouchableOpacity, View, StyleSheet, ToastAndroid, ImageBackground } from "react-native";
 import { getAppContext, ContextProvider } from '@AppAdvancedTopics/ReactContext/index.js';
 import { DigitGroup } from './DigitGroup';
 
-export const DisplayProblem = () =>{
+const DisplayProblem = (props, ref) =>{
  const { contextData, setContextData, deleteContextData  } = getAppContext();
  const { part1, part2, result, pickedItem, moveCounter, totalMoves } = contextData;
  const [p1, setP1] = useState(part1);
  const [p2, setP2] = useState(part2);
  const [r, setR] = useState(result);
 
+ useImperativeHandle(ref, ()=>{
+    return {
+        reset: reset
+    }    
+ });
  const reset = ()=>{
-    setP1(part1);
-    setP2(part2);
-    setR(result);
+    console.log("Reset Test");
+   setP1(part1);
+   setP2(part2);
+   setR(result);
  };
 
  useEffect(()=>{
@@ -42,3 +48,5 @@ export const DisplayProblem = () =>{
     </View>
   </View>);
 };
+
+export default forwardRef(DisplayProblem);

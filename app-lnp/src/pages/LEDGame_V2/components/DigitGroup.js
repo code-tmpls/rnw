@@ -12,16 +12,23 @@ export const DigitGroup = ({ id, number }) =>{
   },[currentDigit]);
 
   const updateDigit = (index, newDigit) => {
-    const updatedArray = [...numberArray];
+    /* const updatedArray = [...numberArray];
     updatedArray[index] = isNaN(newDigit)?'*':newDigit;
     const updatedNumber = updatedArray.join('');
     console.log("updatedNumber [updateDigit]: "+updatedNumber);
-    setCurrentDigit(updatedNumber);
+    setCurrentDigit(updatedNumber); */
+    setCurrentDigit((prevNumber) => {
+      const updatedArray = [...prevNumber.toString()].map(Number);
+      updatedArray[index] = isNaN(newDigit) ? '*' : newDigit;
+      const updatedNumber = updatedArray.join('');
+      console.log("updatedNumber [updateDigit]: " + updatedNumber);
+      return updatedNumber;
+    });
   };
 
   return (<>
-   {numberArray?.map((num, i)=>{
-    return (<Digit id={id+'|'+i} key={i} number={num} updateDigit={(newDigit) => updateDigit(i, newDigit)} />);
+   {currentDigit.toString().split('')?.map((num, i)=>{
+    return (<Digit id={id+'|'+i} key={id + '|' + i} number={num} updateDigit={(newDigit) => updateDigit(i, newDigit)} />);
    })}
     <View style={{ position: 'absolute', color:'#000', zIndex:4, bottom: -25, right: -20 }}>
       <Text style={{ fontSize: 22 }}>({currentDigit})</Text>
