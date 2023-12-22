@@ -20,6 +20,8 @@ const DisplayProblem = (props, ref) =>{
    setP1(part1);
    setP2(part2);
    setR(result);
+   setContextData({ pickedItem:{}, moveCounter: 0, reset: true });
+   setTimeout(()=>{ setContextData({ pickedItem:{}, moveCounter: 0, reset: false }); }, 1000);
  };
 
  useEffect(()=>{

@@ -9,6 +9,7 @@ import { LEDGame } from "@AppPage/LEDGame_V2/index.js";
 import { ContextProvider } from '@AppAdvancedTopics/ReactContext/index.js';
 import { Sound } from '@AppUtils/GameSound/sound.js';
 import { GameSound } from '@AppUtils/GameSound/index.js';
+import logger from '@AppAdvancedTopics/Logger/index.js';
 
 const App = () =>{
    const play = true;

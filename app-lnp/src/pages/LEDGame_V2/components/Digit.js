@@ -19,13 +19,22 @@ const initialDisplay = {
 export const Digit = ({ id, number, updateDigit  }) => {
   const num= isNaN(number)?'*':number;
   const [display, setDisplay] = useState(initialDisplay);
-  const [activeSegments, setActiveSegments] = useState(display[num]); 
+  const [activeSegments, setActiveSegments] = useState(initialDisplay[num]); 
   const { contextData, setContextData, deleteContextData  } = getAppContext();
 
   useEffect(()=>{
+    console.log("activeSegments [updated]: "+JSON.stringify(activeSegments));
+  },[activeSegments]);
+
+  useEffect(()=>{
     if(contextData?.reset){
+      console.log("RESET Triggered [Digit]:");
+      console.log("num: "+num);
+      console.log("initialDisplay: "+JSON.stringify(initialDisplay));
+      console.log("initialDisplay[num]: "+JSON.stringify(initialDisplay[num]));
+      console.log("RESET Triggered [Digit]:");
       setDisplay(initialDisplay);
-      setActiveSegments(display[num]);
+      setActiveSegments(initialDisplay[num]);
     }
   },[contextData?.reset]);
 
@@ -51,23 +60,15 @@ export const Digit = ({ id, number, updateDigit  }) => {
         ele =  { ...display, "*": aSeg };
         aSeg = ele["*"];
       }
-      console.log("digit[pre]: "+digit);
-      console.log("digit[aSeg]: "+JSON.stringify(aSeg));
+      // console.log("digit[pre]: "+digit);
+      // console.log("digit[aSeg]: "+JSON.stringify(aSeg));
       setDisplay(ele);
       setActiveSegments(aSeg);
       updateDigit(digit);
   };
 
-  const success = () => {
-    return false;
-  };
-
-  const reset = () => {
-    setDisplay(initialDisplay);
-  };
-
   useEffect(()=>{
-    console.log("pickedItem: "+JSON.stringify(contextData));
+    // console.log("pickedItem: "+JSON.stringify(contextData));
   },[contextData]);
 
   const toggleSegment = (segmentId) => {
@@ -83,52 +84,9 @@ export const Digit = ({ id, number, updateDigit  }) => {
         setContextData({ pickedItem:{}, moveCounter: moveCounter + 1  });
         touchNdisplaySegment(segmentId);
       }
-    } else {
-      if (success()) {
-        console.log('Success');
-      } else {
-        setTimeout(() => {
-          reset();
-        }, 1000);
-      }
     }
   };
   
-
-  /* const toggleSegment = (segmentId)=>{
-    const moveCounter = contextData?.moveCounter;
-    const totalMoves = contextData?.totalMoves;
-    const pickedItem = contextData?.pickedItem;
-    let segment = display?.[num]?.[segmentId];
-
-  //  console.log("[Debug Begin] :: Started");
-   // console.log("moveCounter: "+moveCounter+" totalMoves: "+totalMoves);
-   // console.log("id: "+id+" number: "+num+" segmentId: "+segmentId);
-   // console.log("initialValues: "+JSON.stringify(display?.[num]));
-   // console.log("display?.[number]?.[segmentId]: "+segment);
-    if(moveCounter < totalMoves){
-      if(segment && Object.keys(pickedItem)?.length === 0){
-          console.log("PASSED IF");
-          setContextData({ pickedItem: { id: id, number: num, segmentId: segmentId, value: !segment } });
-          touchNdisplaySegment(segmentId);
-      } else if(!segment && Object.keys(pickedItem)?.length > 0) {
-          console.log("PASSED ELSE");
-          deleteContextData('pickedItem');
-          touchNdisplaySegment(segmentId);
-          setContextData({ moveCounter: moveCounter + 1  });
-      }
-      /* if(display?.[number]?.[segmentId] && Object.keys(appContext?.contextData?.pickedItem)?.length === 0){
-         
-      } else if (!display?.[number]?.[segmentId] && appContext?.contextData?.pickedItem?.length > 0 && 
-        (appContext?.contextData?.pickedItem?.id === id && appContext?.contextData?.pickedItem?.number === number)) {
-          appContext?.contextData?.setPickedItem('');
-          touchNdisplaySegment(segmentId);
-          appContext?.contextData?.setMoveCounter((prev)=>prev+1);
-      } 
-    }
-    
-  };*/
-
   return (
     <View style={styles.digitView}>
     <View style={styles.digit}>
