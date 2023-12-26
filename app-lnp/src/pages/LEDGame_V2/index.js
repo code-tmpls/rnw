@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { getAppContext, ContextProvider } from '@AppAdvancedTopics/ReactContext/index.js';
 import { OutOfMovesNotification } from './components/Notification.js';
 
-export const LEDGame = () => {
+export const LEDGame = ({ navigation }) => {
   const ref = useRef();
   const part1 = 10;
   const part2 = 12;
@@ -29,7 +29,7 @@ export const LEDGame = () => {
 
   return (<ContextProvider variables={{ part1, part2, result, reset, pickedItem, moveCounter, totalMoves }}>
     <ImageBackground source={require('@AppAssets/images/bg.jpg')} style={styles.backgroundImage}>
-      <OutOfMovesNotification />
+      <OutOfMovesNotification navigation={navigation} reset={resetFunc} />
       <StatusBar translucent backgroundColor="white" style="auto" height="5%"  />
       <GameSummary reset={resetFunc} />
       <View style={styles.container}>

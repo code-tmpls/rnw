@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TouchableOpacity, View, StyleSheet, ToastAndroid, ImageBackground, Animated } from "react-native";
+import { getAppContext, ContextProvider } from '@AppAdvancedTopics/ReactContext/index.js';
 
-export const OutOfMovesNotification = () => {
+export const OutOfMovesNotification = ({ navigation, reset }) => {
+  const { contextData, setContextData, deleteContextData  } = getAppContext();
+  const [show, setShow] = useState(false);
   const [fadeAnim] = useState(new Animated.Value(0));
+
+  useEffect(()=>{
+    if(contextData?.moveCounter === contextData?.totalMoves){
+      setShow(true);
+    }
+  },[contextData]);
 
   useEffect(() => {
     // Fade in animation
@@ -11,21 +20,10 @@ export const OutOfMovesNotification = () => {
       duration: 1500, // 1 second
       useNativeDriver: true,
     }).start();
+  }, [show]);
 
-    /*// Fade out animation after 10 seconds
-    const fadeOutTimer = setTimeout(() => {
-      Animated.timing(fadeAnim, {
-        toValue: 0,
-        duration: 1000, // 1 second
-        useNativeDriver: true,
-      }).start();
-    }, 10000);
-
-    return () => clearTimeout(fadeOutTimer); */
-  }, [fadeAnim]);
-
-  return (
-    <Animated.View
+  return (<>
+    {show && (<Animated.View
       style={{
         position: 'absolute',
         flex: 1,
@@ -41,9 +39,13 @@ export const OutOfMovesNotification = () => {
       <Text style={{ fontSize: 20, fontWeight: 'bold' }}>You're unsuccessful!</Text>
       <Text style={{ fontWeight: 'bold' }}>(Out of Moves)</Text>
       <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Home')}>
         <Text style={{ borderWidth: 2, borderRadius: 6, fontSize:12, fontWeight:'bold', padding: 8, margin: 10, backgroundColor: '#fff' }}>Back to Main Menu</Text>
-        <Text style={{ borderWidth: 2, borderRadius: 6, fontSize:12, fontWeight:'bold', padding: 8, margin: 10, backgroundColor: '#fff' }}>Retry the Problem</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>{reset();setShow(false); }}>
+          <Text style={{ borderWidth: 2, borderRadius: 6, fontSize:12, fontWeight:'bold', padding: 8, margin: 10, backgroundColor: '#fff' }}>Retry the Problem</Text>
+        </TouchableOpacity>
       </View>
-    </Animated.View>
-  );
+    </Animated.View>)}
+  </>);
 };
