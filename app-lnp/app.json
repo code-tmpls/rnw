@@ -11,6 +11,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ],
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -26,5 +36,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
-  }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3940256099942544/6300978111",
+    "ios_app_id": "ca-app-pub-3940256099942544/6300978111"
+   }
 }

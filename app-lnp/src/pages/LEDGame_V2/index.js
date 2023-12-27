@@ -6,6 +6,7 @@ import DisplayProblem from './components/DisplayProblem';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getAppContext, ContextProvider } from '@AppAdvancedTopics/ReactContext/index.js';
 import { OutOfMovesNotification } from './components/Notification.js';
+// import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 export const LEDGame = ({ navigation }) => {
   const ref = useRef();
@@ -36,11 +37,22 @@ export const LEDGame = ({ navigation }) => {
         <ProblemTitle />
         <DisplayProblem ref={ref} />
       </View>
+        {/*<BannerAd
+      unitId="ca-app-pub-3940256099942544/6300978111"
+      size={BannerAdSize.FULL_BANNER}
+      requestOptions={{
+        requestNonPersonalizedAdsOnly: true,
+      }}
+    />*/}
   </ImageBackground>
   </ContextProvider>);
 };
 
 const styles = StyleSheet.create({
+  bottomBanner: {
+    position: "absolute",
+    bottom: 0
+  },
   backgroundImage: { flex: 1, resizeMode: 'cover', justifyContent: 'center', alignItems: 'flex-start' },
   problemTitleView: { alignItems:'center', marginTop: 1 },
   problemTitle: { fontFamily:'HandycheeraRegular', fontSize:18 },
